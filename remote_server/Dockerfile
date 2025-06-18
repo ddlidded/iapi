@@ -14,7 +14,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application files
 COPY app.py .
-COPY .env .
+
+# Create a default .env file (will be overridden by environment variables)
+RUN echo "PORT=5163\nLOG_LEVEL=INFO" > .env
 
 # Copy built frontend from the build stage
 COPY --from=build /app/frontend/dist /app/static
