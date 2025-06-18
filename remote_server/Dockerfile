@@ -18,8 +18,11 @@ COPY app.py .
 # Create a default .env file (will be overridden by environment variables)
 RUN echo "PORT=5163\nLOG_LEVEL=INFO" > .env
 
+# Create static directory
+RUN mkdir -p static
+
 # Copy built frontend from the build stage
-COPY --from=build /app/frontend/dist /app/static
+COPY --from=build /app/frontend/dist/* /app/static/
 
 # Expose port (use the one from your .env file)
 EXPOSE 5163
